@@ -6,17 +6,17 @@ from functools import partial
 HEADERS = {'Content-Type': 'application/json', 'User-Agent': 'flood'}
 post = partial(requests.post, headers=HEADERS)
 
-def get_latest_block(node):
-    data = json.dumps(ctc.rpc.construct_eth_block_number(*args))
-    return int(post(url=node, data=data).json()['result'], base=16)
+def get_latest_block(url):
+    data = json.dumps(ctc.rpc.construct_eth_block_number())
+    return int(post(url=url, data=data).json()['result'], base=16)
 
 def request_block(block, url):
     data = json.dumps(ctc.rpc.construct_eth_get_block_by_number(block))
-    return post(url=node, data=data)
+    return post(url=url, data=data)
 
 
 def ensure_block_exists(nodes, block):
-    responses = map(partial(request_block(block)), nodes)
+    responses = map(partial(request_block, block), nodes)
 
     assert(all(map(lambda resp: resp.status_code == 200, responses)))
 

@@ -4,6 +4,7 @@ import typing
 
 import flood
 from . import equality_test_sets
+from .input_generator import get_block_range
 
 
 def run_equality_test(
