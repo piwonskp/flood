@@ -26,7 +26,7 @@ def run_equality_test(
     if len(nodes) != 2:
         raise Exception('should use two nodes in equality test')
 
-    equality_tests = equality_test_sets.get_all_equality_tests()
+    equality_tests = equality_test_sets.get_all_equality_tests(*get_block_range(nodes))
 
     # get tests
     if test_name != 'all':
