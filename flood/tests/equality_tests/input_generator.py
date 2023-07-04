@@ -25,7 +25,7 @@ def get_block_range(nodes):
     block_range = 50
     node_urls = map(lambda node: node['url'], nodes.values())
 
-    latest = get_latest_block(node_urls[0])
+    latest = get_latest_block(next(node_urls))
 
     start_block = latest - 150
     end_block = start_block + block_range
