@@ -9,6 +9,7 @@ from flood import block_generators
 def get_all_equality_tests(
     start_block: int = 10_000_000,
     end_block: int = 16_000_000,
+    transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     range_size: int = 100,
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.EqualityTest]:
@@ -31,6 +32,7 @@ def get_all_equality_tests(
 def get_vanilla_equality_tests(
     start_block: int = 10_000_000,
     end_block: int = 16_000_000,
+    transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     range_size: int = 100,
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.EqualityTest]:
@@ -118,7 +120,7 @@ def get_vanilla_equality_tests(
             'eth_getTransactionByHash',
             ctc.rpc.construct_eth_get_transaction_by_hash,
             [
-                '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5'  # noqa: E501
+                transaction_hash
             ],
             {},
         ),
@@ -126,7 +128,7 @@ def get_vanilla_equality_tests(
             'eth_getTransactionReceipt',
             ctc.rpc.construct_eth_get_transaction_receipt,
             [
-                '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5'  # noqa: E501
+                transaction_hash
             ],
             {},
         ),
@@ -178,6 +180,7 @@ def get_vanilla_equality_tests(
 def get_trace_equality_tests(
     start_block: int = 10_000_000,
     end_block: int = 16_000_000,
+    transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.EqualityTest]:
     import ctc.rpc
@@ -258,7 +261,7 @@ def get_trace_equality_tests(
         #     (
         #         'trace_raw_transaction',
         #         ctc.rpc.construct_trace_raw_transaction,
-        #         ['0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5'],  # noqa: E501
+        #         [transaction_hash],
         #         {'trace_type': ['trace']},
         #     ),
         (
@@ -274,7 +277,7 @@ def get_trace_equality_tests(
             'trace_replay_transaction',
             ctc.rpc.construct_trace_replay_transaction,
             [
-                '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5'  # noqa: E501
+                transaction_hash
             ],
             {'trace_type': ['trace']},
         ),
@@ -282,7 +285,7 @@ def get_trace_equality_tests(
             'trace_transaction',
             ctc.rpc.construct_trace_transaction,
             [
-                '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5'  # noqa: E501
+                transaction_hash
             ],
             {},
         ),
