@@ -17,6 +17,7 @@ def get_all_equality_tests(
         get_vanilla_equality_tests(
             start_block=start_block,
             end_block=end_block,
+            transaction_hash=transaction_hash,
             range_size=range_size,
             random_seed=random_seed,
         )
@@ -24,6 +25,7 @@ def get_all_equality_tests(
         get_trace_equality_tests(
             start_block=start_block,
             end_block=end_block,
+            transaction_hash=transaction_hash,
             random_seed=random_seed,
         )
     )
