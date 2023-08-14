@@ -40,6 +40,4 @@ def get_block_range_and_tx(nodes):
     response = get_block_and_ensure_it_exists(node_urls, start_block)
     get_block_and_ensure_it_exists(node_urls, end_block)
 
-    transaction = random.choice(response.json()['result']['transactions'])
-
-    return start_block, end_block, transaction
+    return response.json()['result'], start_block, end_block

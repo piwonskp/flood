@@ -7,16 +7,18 @@ from flood import block_generators
 
 
 def get_all_equality_tests(
+    block,
     start_block: int = 10_000_000,
     end_block: int = 16_000_000,
-    transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     range_size: int = 100,
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.EqualityTest]:
+    transaction_hash = random.choice(block['transactions'])
     return list(
         get_vanilla_equality_tests(
             start_block=start_block,
             end_block=end_block,
+            block_hash=block['hash'],
             transaction_hash=transaction_hash,
             range_size=range_size,
             random_seed=random_seed,
@@ -34,6 +36,7 @@ def get_all_equality_tests(
 def get_vanilla_equality_tests(
     start_block: int = 10_000_000,
     end_block: int = 16_000_000,
+    block_hash = '0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd',  # noqa: E501
     transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     range_size: int = 100,
     random_seed: flood.RandomSeed | None = None,
@@ -114,7 +117,7 @@ def get_vanilla_equality_tests(
             'eth_getBlockByHash',
             ctc.rpc.construct_eth_get_block_by_hash,
             [
-                '0x3dc4ef568ae2635db1419c5fec55c4a9322c05302ae527cd40bff380c1d465dd'  # noqa: E501
+                block_hash
             ],
             {},
         ),
