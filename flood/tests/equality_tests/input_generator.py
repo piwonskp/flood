@@ -1,6 +1,5 @@
 import ctc.rpc
 import json
-import random
 import requests
 
 from functools import partial
