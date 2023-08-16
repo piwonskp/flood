@@ -4,7 +4,7 @@ import requests
 
 from functools import partial
 
-
+BLOCK_RANGE = 50
 HEADERS = {'Content-Type': 'application/json', 'User-Agent': 'flood'}
 post = partial(requests.post, headers=HEADERS)
 
@@ -28,13 +28,12 @@ def get_block_and_ensure_it_exists(nodes, block):
 
 
 def get_block_range_and_tx(nodes):
-    block_range = 50
     node_urls = list(map(lambda node: node['url'], nodes.values()))
 
     latest = get_latest_block(node_urls[0])
 
     start_block = latest - 150
-    end_block = start_block + block_range
+    end_block = start_block + BLOCK_RANGE
 
     response = get_block_and_ensure_it_exists(node_urls, start_block)
     get_block_and_ensure_it_exists(node_urls, end_block)
