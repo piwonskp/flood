@@ -4,7 +4,6 @@ import typing
 import random
 
 import flood
-from flood import block_generators
 from flood.tests.equality_tests.input_generator import BLOCK_RANGE
 
 
