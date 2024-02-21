@@ -389,7 +389,7 @@ def generate_calls_eth_call(
         list(_default_call_datas.values()),
         size=n_calls,
     )
-    nodes = flood.NodeShorthand
+    nodes = flood.NodesShorthand
     nodes = flood.user_io.parse_nodes(nodes, request_metadata=True)
     response, start_block, end_block = get_block_range_and_tx(nodes)
     print (start_block, end_block)
