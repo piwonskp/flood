@@ -58,6 +58,8 @@ def get_tests_generator(test_name: str) -> flood.MultiLoadTestGenerator:
 def generate_test(
     *,
     test_name: str,
+    start_block: int,
+    end_block: int,
     random_seed: flood.RandomSeed | None = None,
     rates: typing.Sequence[int] | None = None,
     durations: typing.Sequence[int] | None = None,
@@ -72,6 +74,8 @@ def generate_test(
     test_parameters: flood.TestGenerationParameters = {
         'flood_version': flood.get_flood_version(),
         'test_name': test_name,
+        'start_block': start_block,
+        'end_block': end_block,
         'random_seed': random_seed,
         'rates': rates,
         'durations': durations,
@@ -84,6 +88,8 @@ def generate_test(
         vegeta_args=vegeta_args,
         network=network,
         random_seed=random_seed,
+        start_block=start_block,
+        end_block=end_block,
     )
     return {'attacks': attacks, 'test_parameters': test_parameters}
 
