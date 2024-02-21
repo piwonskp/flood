@@ -373,8 +373,8 @@ _default_call_datas = {
 def generate_calls_eth_call(
     n_calls: int,
     network: str,
-    random_seed: flood.RandomSeed | None = None,
     nodes: flood.NodesShorthand,
+    random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.Call]:
     import ctc.rpc
 
