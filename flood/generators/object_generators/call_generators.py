@@ -373,7 +373,6 @@ _default_call_datas = {
 def generate_calls_eth_call(
     n_calls: int,
     network: str,
-    nodes: flood.NodesShorthand,
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.Call]:
     import ctc.rpc
@@ -390,12 +389,9 @@ def generate_calls_eth_call(
         list(_default_call_datas.values()),
         size=n_calls,
     )
-    nodes = flood.user_io.parse_nodes(nodes, request_metadata=True)
-    response, start_block, end_block = get_block_range_and_tx(nodes)
-    print (start_block, end_block)
     block_numbers = block_generators.generate_block_numbers(
-        start_block=start_block,
-        end_block=end_block,
+        start_block=1444,
+        end_block=111111,
         n=n_calls,
         random_seed=random_seed,
         network=network,
