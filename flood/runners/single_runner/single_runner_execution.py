@@ -6,6 +6,8 @@ import flood
 from . import single_runner_io
 from . import single_runner_summary
 
+from ...generators.object_generators.input_generator import get_block_range_and_tx
+
 
 def _run_single(
     *,
@@ -62,6 +64,9 @@ def _run_single(
         nodes, verbose=verbose, request_metadata=True
     )
 
+    # get block ranges
+    reponse, start, end = get_block_range_and_tx(nodes)  
+
     # generate test and save to disk
     use_test: flood.LoadTest | flood.TestGenerationParameters
     test_parameters: flood.TestGenerationParameters
@@ -69,6 +74,8 @@ def _run_single(
         test_parameters = {
             'flood_version': flood.get_flood_version(),
             'test_name': test_name,
+            'start_block': start,
+            'end_block': end,
             'rates': rates,
             'durations': durations,
             'vegeta_args': vegeta_args,
@@ -93,7 +100,7 @@ def _run_single(
 
     # run tests
     if verbose:
-        single_runner_summary._print_run_start()
+        single_runner_summary._print_run_start()  
     results = flood.run_load_tests(
         nodes=nodes,
         test=use_test,

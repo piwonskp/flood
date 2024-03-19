@@ -15,6 +15,8 @@ def generate_test_eth_get_block_by_number(
     network: str,
     vegeta_args: flood.VegetaArgsShorthand | None = None,
     random_seed: spec.RandomSeed | None = None,
+    start_block: int | None = None,
+    end_block: int | None = None,
 ) -> typing.Sequence[flood.VegetaAttack]:
     n_calls = load_tests.estimate_call_count(
         rates=rates, duration=duration, durations=durations
@@ -23,6 +25,8 @@ def generate_test_eth_get_block_by_number(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
+        start_block=start_block,
+        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -41,6 +45,8 @@ def generate_test_eth_fee_history(
     network: str,
     vegeta_args: flood.VegetaArgsShorthand | None = None,
     random_seed: spec.RandomSeed | None = None,
+    start_block: int | None = None,
+    end_block: int | None = None,
 ) -> typing.Sequence[flood.VegetaAttack]:
     n_calls = load_tests.estimate_call_count(
         rates=rates, duration=duration, durations=durations
@@ -49,6 +55,8 @@ def generate_test_eth_fee_history(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
+        start_block=start_block,
+        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,

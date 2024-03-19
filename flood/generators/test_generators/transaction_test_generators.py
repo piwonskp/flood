@@ -14,6 +14,8 @@ def generate_test_eth_get_transaction_by_hash(
     durations: typing.Sequence[int] | None = None,
     vegeta_args: flood.VegetaArgsShorthand | None = None,
     random_seed: flood.RandomSeed | None = None,
+    start_block: int | None = None,
+    end_block: int | None = None,
 ) -> typing.Sequence[flood.VegetaAttack]:
     n_calls = load_tests.estimate_call_count(
         rates=rates, duration=duration, durations=durations
@@ -22,6 +24,8 @@ def generate_test_eth_get_transaction_by_hash(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
+        start_block=start_block,
+        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -40,6 +44,8 @@ def generate_test_eth_get_transaction_receipt(
     durations: typing.Sequence[int] | None = None,
     vegeta_args: flood.VegetaArgsShorthand | None = None,
     random_seed: flood.RandomSeed | None = None,
+    start_block: int | None = None,
+    end_block: int | None = None,
 ) -> typing.Sequence[flood.VegetaAttack]:
     n_calls = load_tests.estimate_call_count(
         rates=rates, duration=duration, durations=durations
@@ -48,6 +54,8 @@ def generate_test_eth_get_transaction_receipt(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
+        start_block=start_block,
+        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,

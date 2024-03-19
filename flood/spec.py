@@ -88,6 +88,8 @@ if typing.TYPE_CHECKING:
     class TestGenerationParameters(typing.TypedDict):
         flood_version: str
         test_name: str
+        start_block: int | None
+        end_block: int | None
         random_seed: RandomSeed | None
         rates: typing.Sequence[int] | None
         durations: typing.Sequence[int] | None

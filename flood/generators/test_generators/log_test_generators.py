@@ -17,6 +17,8 @@ def generate_test_eth_get_logs(
     random_seed: flood.RandomSeed | None = None,
     contract_address: str | None = None,
     block_range_size: int | None = None,
+    start_block: int | None = None,
+    end_block: int | None = None,
 ) -> typing.Sequence[flood.VegetaAttack]:
     n_calls = load_tests.estimate_call_count(
         rates=rates, duration=duration, durations=durations
@@ -27,6 +29,8 @@ def generate_test_eth_get_logs(
         random_seed=random_seed,
         contract_address=contract_address,
         block_range_size=block_range_size,
+        start_block=start_block,
+        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
