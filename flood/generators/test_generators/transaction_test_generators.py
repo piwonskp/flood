@@ -24,8 +24,6 @@ def generate_test_eth_get_transaction_by_hash(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -54,8 +52,6 @@ def generate_test_eth_get_transaction_receipt(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,

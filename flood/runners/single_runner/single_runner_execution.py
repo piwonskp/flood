@@ -32,7 +32,6 @@ def _run_single(
     import time
 
     t_start = time.time()
-
     if include_deep_output is None:
         include_deep_output = []
     if deep_check and 'metrics' not in include_deep_output:
@@ -66,7 +65,7 @@ def _run_single(
 
     # get block ranges
     reponse, start, end = get_block_range_and_tx(nodes)  
-
+        
     # generate test and save to disk
     use_test: flood.LoadTest | flood.TestGenerationParameters
     test_parameters: flood.TestGenerationParameters
@@ -82,6 +81,7 @@ def _run_single(
             'network': flood.user_io.parse_nodes_network(nodes),
             'random_seed': random_seed,
         }
+        
         flood.runners.single_runner.single_runner_io._save_single_run_test(
             test_name=test_name,
             output_dir=output_dir,

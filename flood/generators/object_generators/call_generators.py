@@ -391,7 +391,6 @@ def generate_calls_eth_call(
     end_block: int = "16_000_000",
 ) -> typing.Sequence[flood.Call]:
     import ctc.rpc
-
     if network != 'ethereum':
         raise Exception('only ethereum supported for eth_call')
 
@@ -635,6 +634,7 @@ def generate_calls_trace_replay_transaction_vm_trace(
     transaction_hashes: typing.Sequence[str] | None = None,
     network: str | None = None,
     random_seed: flood.RandomSeed | None = None,
+    
 ) -> typing.Sequence[flood.Call]:
     import ctc.rpc
 

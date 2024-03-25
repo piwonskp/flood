@@ -54,8 +54,6 @@ def generate_test_trace_transaction(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -174,8 +172,6 @@ def generate_test_trace_replay_transaction(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -204,8 +200,6 @@ def generate_test_trace_replay_transaction_state_diff(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
@@ -234,8 +228,6 @@ def generate_test_trace_replay_transaction_vm_trace(
         n_calls=n_calls,
         network=network,
         random_seed=random_seed,
-        start_block=start_block,
-        end_block=end_block,
     )
     return load_tests.create_load_test(
         calls=calls,
