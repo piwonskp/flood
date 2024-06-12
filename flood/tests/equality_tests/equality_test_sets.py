@@ -4,7 +4,6 @@ import typing
 import random
 
 import flood
-from flood import block_generators
 from flood.tests.equality_tests.input_generator import BLOCK_RANGE
 
 
@@ -45,7 +44,7 @@ def get_vanilla_equality_tests(
 ) -> typing.Sequence[flood.EqualityTest]:
     import ctc.rpc
 
-    start_block, end_block = block_generators.generate_block_ranges(
+    start_block, end_block = flood.generators.generate_block_ranges(
         n=1,
         range_size=range_size,
         start_block=start_block,
@@ -176,8 +175,8 @@ def get_vanilla_equality_tests(
             'eth_feeHistory',
             ctc.rpc.construct_eth_fee_history,
             [
-                BLOCK_RANGE,
                 int(start_block),
+                BLOCK_RANGE
             ],
             {},
         ),
@@ -190,9 +189,24 @@ def get_trace_equality_tests(
     transaction_hash: str = '0xd01212e8ab48d2fd2ea9c4f33f8670fd1cf0cfb09d2e3c6ceddfaf54152386e5', # noqa: E501
     random_seed: flood.RandomSeed | None = None,
 ) -> typing.Sequence[flood.EqualityTest]:
+    """
+    ## Trace
+    https://docs.alchemy.com/reference/trace-api
+    https://www.quicknode.com/docs/ethereum/trace_rawTransaction
+    https://openethereum.github.io/JSONRPC-trace-module
+
+    ## Debug
+    https://docs.alchemy.com/reference/debug-api-endpoints
+    https://www.quicknode.com/docs/ethereum/debug_traceBlockByNumber
+
+    not currently testing:
+    - trace_rawTransaction (not sure whether this is working in Erigon)
+    - trace_filter
+    - trace_get
+    """
     import ctc.rpc
 
-    block_number = block_generators.generate_block_numbers(
+    block_number = flood.generators.generate_block_numbers(
         n=1,
         start_block=start_block,
         end_block=end_block,
@@ -211,6 +225,14 @@ def get_trace_equality_tests(
 
     return [
         (
+            'trace_transaction',
+            ctc.rpc.construct_trace_transaction,
+            [
+                transaction_hash  # noqa: E501
+            ],
+            {},
+        ),
+        (
             'trace_block',
             ctc.rpc.construct_trace_block,
             [],
@@ -223,6 +245,34 @@ def get_trace_equality_tests(
             {
                 'to_address': '0x6b175474e89094c44da98b954eedeac495271d0f',
                 'trace_type': ['trace'],
+                'function_abi': function_abi,
+                'function_parameters': [
+                    '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
+                ],
+                'block_number': block_number,
+            },
+        ),
+        (
+            'trace_call_state_diff',
+            ctc.rpc.construct_trace_call,
+            [],
+            {
+                'to_address': '0x6b175474e89094c44da98b954eedeac495271d0f',
+                'trace_type': ['stateDiff'],
+                'function_abi': function_abi,
+                'function_parameters': [
+                    '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
+                ],
+                'block_number': block_number,
+            },
+        ),
+        (
+            'trace_call_vm_trace',
+            ctc.rpc.construct_trace_call,
+            [],
+            {
+                'to_address': '0x6b175474e89094c44da98b954eedeac495271d0f',
+                'trace_type': ['vmTrace'],
                 'function_abi': function_abi,
                 'function_parameters': [
                     '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
@@ -246,6 +296,42 @@ def get_trace_equality_tests(
                     },
                 ],
                 'trace_type': ['trace'],
+            },
+        ),
+        (
+            'trace_call_many_state_diff',
+            ctc.rpc.construct_trace_call_many,
+            [],
+            {
+                'calls': [
+                    {
+                        'to_address': '0x6b175474e89094c44da98b954eedeac495271d0f',  # noqa: E501
+                        'function_abi': function_abi,
+                        'function_parameters': [
+                            '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
+                        ],
+                        'trace_type': ['stateDiff'],
+                    },
+                ],
+                'trace_type': ['stateDiff'],
+            },
+        ),
+        (
+            'trace_call_many_vm_trace',
+            ctc.rpc.construct_trace_call_many,
+            [],
+            {
+                'calls': [
+                    {
+                        'to_address': '0x6b175474e89094c44da98b954eedeac495271d0f',  # noqa: E501
+                        'function_abi': function_abi,
+                        'function_parameters': [
+                            '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
+                        ],
+                        'trace_type': ['vmTrace'],
+                    },
+                ],
+                'trace_type': ['vmTrace'],
             },
         ),
         #     (
@@ -281,6 +367,24 @@ def get_trace_equality_tests(
             },
         ),
         (
+            'trace_replay_block_transactions_state_diff',
+            ctc.rpc.construct_trace_replay_block_transactions,
+            [],
+            {
+                'block_number': block_number,
+                'trace_type': ['stateDiff'],
+            },
+        ),
+        (
+            'trace_replay_block_transactions_vm_traces',
+            ctc.rpc.construct_trace_replay_block_transactions,
+            [],
+            {
+                'block_number': block_number,
+                'trace_type': ['vmTrace'],
+            },
+        ),
+        (
             'trace_replay_transaction',
             ctc.rpc.construct_trace_replay_transaction,
             [
@@ -297,3 +401,4 @@ def get_trace_equality_tests(
             {},
         ),
     ]
+
